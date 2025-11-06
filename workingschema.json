@@ -1,0 +1,14 @@
+{
+  "Entity": "Categories",
+  "ReturnFields": ["CategoryId", "Name", "Description"],
+  "Operator": 0,
+  "FilteringOperands": [
+    {
+      "FieldName": "Name",
+      "Condition": {
+        "Name": "contains"
+      },
+      "SearchVal": "a"
+    }
+  ]
+}
