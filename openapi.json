@@ -1,0 +1,80 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Nested Customer Orders API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/customers": {
+      "get": {
+        "summary": "Get all customers with nested orders",
+        "responses": {
+          "200": {
+            "description": "List of customers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Customer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "customerId": { "type": "integer" },
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "orders": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Order" }
+          }
+        }
+      },
+
+      "Order": {
+        "type": "object",
+        "properties": {
+          "orderId": { "type": "integer" },
+          "orderDate": { "type": "string", "format": "date" },
+          "status": { "type": "string" },
+          "orderItems": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/OrderItem" }
+          }
+        }
+      },
+
+      "OrderItem": {
+        "type": "object",
+        "properties": {
+          "orderItemId": { "type": "integer" },
+          "quantity": { "type": "integer" },
+          "unitPrice": { "type": "number", "format": "float" },
+          "product": {
+            "$ref": "#/components/schemas/Product"
+          }
+        }
+      },
+
+      "Product": {
+        "type": "object",
+        "properties": {
+          "productId": { "type": "integer" },
+          "productName": { "type": "string" },
+          "category": { "type": "string" },
+          "inStock": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}
